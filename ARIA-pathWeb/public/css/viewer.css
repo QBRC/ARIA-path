@@ -1,0 +1,699 @@
+.a9s-toolbar{
+    display: inline-block;
+    align-items: center;
+    /* border: 1px solid #4e73df; 
+    border-radius: 6px; */
+    /* margin:6px 0 6px 13px; */
+    margin:6px 0 6px 6px;
+}
+.a9s-toolbar-btn {
+    margin: 4px 4px 4px 0;
+    outline: 0;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 8px;
+    width: 45px;
+    height: 45px;
+}
+.a9s-toolbar-btn.active {
+    background-color: rgba(0,0,0,0.3);
+}
+
+.a9s-toolbar-btn-inner {
+    display: flex;
+}
+
+.a9s-toolbar-btn svg {
+    overflow: visible;
+    width: 100%;
+    height: 100%;
+}
+
+.a9s-toolbar-btn svg rect, .a9s-toolbar-btn svg path {
+    stroke-width: 5px;
+    fill: none;
+    stroke: rgba(0, 0, 0, 0.5);
+}
+
+.a9s-toolbar-btn svg circle {
+    stroke-width: 4px;
+    fill: #fff;
+    stroke: #000;
+}
+.a9s-annotation .a9s-outer, .a9s-selection .a9s-outer .a9s-inner{
+    stroke: rgba(255,0,0,.7);
+    stroke-width: 5px;
+    fill: none;
+}
+
+/* Annotation Download */
+.alert-danger {
+    display: none;
+}
+
+#check_all {
+    height: 20px;
+    width: 20px;
+    margin-bottom: 3px;
+}
+
+#check_all:hover {
+    cursor: pointer;
+}
+
+#dataTable input[type="checkbox"] {
+    /*height: 20px;*/
+    /*width: 20px;*/
+    margin-top: 2px;
+}
+
+#dataTable tbody input:hover {
+    cursor: pointer;
+}
+
+#dataTable tbody tr.selected {
+    background-color: #4e73df;
+    color: white;
+}
+#dataTable tbody tr.selected > td .fa-eye {
+    color: white;
+}
+
+
+.btn-group > .btn-group:not(:last-child) > .btn,
+.btn-group > .btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0.35rem;
+    border-bottom-right-radius: 0.35rem;
+}
+
+.btn-group > .btn-group:not(:first-child) > .btn,
+.btn-group > .btn:not(:first-child) {
+    border-top-left-radius: 0.35rem;
+    border-bottom-left-radius: 0.35rem;
+}
+
+.btn-group,
+.btn-group-vertical {
+    display: block;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.wrapper > .btn,.btn-download {
+    background-color: transparent;
+    color: #4e73df;
+    border-color: #4e73df;
+    /*margin-right: 10px;*/
+    /*margin-left: 0 !important;*/
+    margin: 0 10px 0.5rem 0 !important;
+}
+
+.wrapper> .btn,
+.btn-download:hover {
+    cursor: pointer;
+    background-color: #4e73df;
+    color: white;
+}
+
+
+#dataTable_length {
+    padding-top: 5px;
+}
+
+#dataTable_info {
+    padding-top: 10px;
+}
+
+
+/* zoom slider */
+.zoom-control {
+    position: relative;
+    width: 120px;
+    margin-top: 30px;
+    margin-left: -20px;
+    /* z-index: 999; */
+}
+
+.zoom-control ul {
+    list-style-type: none;
+}
+
+.zoom-control li {
+    width: 40px;
+    text-align: center;
+    margin-bottom: 10px;
+    border: 1px solid gray;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.zoom-control li:hover {
+    cursor: pointer;
+    background-color: darkgrey;
+}
+
+.range-wrapper {
+    margin-left: -60px;
+    margin-top: 77px;
+    width: 20px;
+}
+
+.form-range {
+    width: 173px;
+    transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+}
+
+/* Firefox Setting */
+@-moz-document url-prefix() {
+    .range-wrapper {
+        margin-left: -60px;
+        margin-top: 0;
+    }
+
+    .form-range {
+        width: 100%;
+        height: 168px;
+        /* transform: rotate(90deg); */
+        /* -moz-transform: rotate(180deg); */
+        transform: rotate(180deg);
+    }
+
+    .range-wrapper {
+        margin-left: 15px;
+        margin-top: 0;
+        width: 20px;
+    }
+  }
+  
+
+.zoom-value {
+    text-align: center;
+    color: white;
+    border: 1px solid #4e73df;
+    width: 80px;
+    margin-left: 35px;
+    background-color: #4e73df;
+}
+
+/* Tooltip styles */
+.viewertooltip {
+    /* position: absolute;  */
+    background-color: transparent;
+    color: black;
+    padding: 0;
+    margin-bottom: 1rem;
+    /* margin-left: 0.25rem; */
+    border:none;
+    height: 0.2rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 63px;
+    height: 22px;
+    vertical-align: middle;
+  }
+
+  /* Hide default HTML checkbox */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 15px;
+    width: 15px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked + .slider:before {
+    -webkit-transform: translateX(40px);
+    -ms-transform: translateX(40px);
+    transform: translateX(40px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 23px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  /* Base styles for the element that has a tooltip */
+  .mouse-track {
+    /* display: inline-block; */
+    position: absolute;
+    background-color: rgba(12, 12, 12, 0.425);
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font:small;
+    bottom: 10px;
+    right: 10px;
+}
+.model-btn-grp{
+    display: flex;
+    align-items: center;
+    margin: 0 8px;
+    position: relative;
+    /* border: 1px solid #ccc;  */
+    /* padding: 10px 13px 0 13px;  */
+}
+
+.viewer-btn{
+  display: inline-block;
+  align-items: center;
+  padding-top:10px;
+  margin: 6px 8px;
+}
+
+.vertical-line {
+    height: 39px; 
+    border-left: 1px solid #ccc;
+    margin: 12px 0 12px 0;  
+    align-items: center;
+  }
+
+  #toolbar{
+    /* position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+    padding: 10px;
+    background: #f8f9fa;
+    border: 1px solid #ddd; */
+  }
+
+  .jstree-icon.jstree-checkbox, .jstree-no-dots .jstree-closed>.jstree-ocl, .jstree-no-dots .jstree-open>.jstree-ocl {
+    background-image: none;
+    background-position: initial;
+    color: #767676;
+  
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .jstree-icon.jstree-checkbox:before {
+    content: "\f096";
+    font-size: 17px;
+  }
+  
+  .jstree-default-large.jstree-checkbox-selection .jstree-clicked>.jstree-checkbox:before, .jstree-default-large .jstree-checked>.jstree-checkbox:before {
+    content: "\f046";
+    font-size: 17px;
+    margin-left: 2px; /* checkedSquare icon is wider -> margin simulates same square position as unchecked */
+  }
+  
+  .jstree-default-large .jstree-anchor>.jstree-undetermined:before{
+    content: "\f147";
+    font-size: 17px;
+  }
+  
+  .jstree-default-large>.jstree-no-dots .jstree-closed>.jstree-ocl:before{
+    content: "\f0da";
+    line-height: 32px;
+  }
+  
+  .jstree-default-large>.jstree-no-dots .jstree-open>.jstree-ocl:before{
+    content: "\f0d7";
+    line-height: 32px;
+  }
+
+  /* Annotator */
+  .annotator-widget > .annotator{
+    padding-top: 5px;
+    padding-left: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    font-size: 0.8rem;
+  }
+
+
+.disabled-checkbox {
+  pointer-events: none;
+  opacity: 0.5; /* Optionally decrease opacity to visually indicate disabled state */
+}
+
+.floating-window {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the close button */
+.close-button {
+  float: right;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.close-button:hover {
+  color: red;
+}
+
+.ellipsis {
+  font-size: 80px; /* Adjust size as needed */
+  color:white;
+}
+
+.ai-img-caption {
+  margin-top: 0.5rem;
+  margin-left: 0.5rem; 
+  margin-bottom: 0rem
+}
+
+table.dataTable td  {
+  max-width: 200px; /* Adjust the maximum width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.zoom-to-annotation:hover{
+    cursor:pointer;
+}
+
+.zoom-to-annotation{
+   color: #4e73df;
+}
+
+.btn-dt {
+  background-color:#4e73df ! important;
+}
+
+.hidden {
+  display: none;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-item {
+  margin-bottom: 10px;
+}
+
+.feature-item h5 {
+  cursor: pointer;
+}
+
+.feature-details {
+  display: none;
+  margin-left: 20px;
+}
+
+/* ruichen */
+
+.r6o-editor {
+  width: 500px !important;
+}
+
+.r6o-editor-inner .widget {
+  display: inline;
+  cursor: move;
+}
+
+.r6o-editor-inner .widget:nth-last-child(2) {
+  /* footer takes 214 pixels, we constrain this part to .r6o-editor.width-214=286 */
+  display: inline-block;
+  width: 280px;
+  margin-left: 6px;
+  margin-right: 0px;   /* width 280+6=286 */
+  cursor: move;
+}
+
+.r6o-editor-inner .r6o-widget.comment.editable:nth-child(2) {
+  /* Hide Add a reply... */
+  display: none;
+}
+
+.r6o-editor-inner .r6o-footer {
+  display: inline-block;
+  width: 214px;
+}
+
+.delete-annotation {
+  display: inline-block !important;
+  position: initial !important;
+}
+
+.annotator {
+  font-size: small;
+  text-align: left;
+  margin-right: 5px;
+  display: inline;
+}
+
+.chatbox-widget {
+  height: 720px;
+}
+
+
+
+/* .dropdown-btn{
+  position: absolute;
+  display: inline-block;
+} */
+.model-display {
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Center text vertically */
+  font-size: 0.875rem; /* Font size similar to btn-sm */
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-radius: 0; /* Remove rounded corners */
+  border: 1px solid darkgray; /* Add border */
+  background-color: #858796; /* Light background color similar to btn-secondary */
+  color: white; /* Dark text color */
+  height: 1.96rem; /* Match height with btn-sm */
+  line-height: 2.125rem; /* Center text vertically */
+  padding: 2px 8px;
+}
+
+/* New classes for dynamic background color */
+.model-display-primary {
+  background-color: #4e73df; /* Bootstrap primary color */
+  color: white; /* Text color for contrast */
+}
+
+.model-display-secondary {
+  background-color: #858796; /* Light background color similar to btn-secondary */
+  color: white; /* Text color for contrast */
+}
+.model-btn, 
+.model-btn.btn-sm {
+    border-radius: 0 !important; /* Remove rounded corners */
+    border: 1px solid darkgray !important; /* Set border to dark gray */
+}
+
+.dropdown-btn, .model-display, .run-stop-btn {
+  margin: 0; /* Remove any default margin */
+}
+.dropdown-btn {
+  margin-right: 0; /* Ensure no space between the dropdown and the model display */
+}
+.btn.dropdown-toggle::after {
+  font-size: 1.0rem; /* Increase or decrease this value for a larger or smaller arrow */
+  vertical-align: middle; /* Adjust the alignment of the arrow */
+}
+#runStopIcon, #ai-runStopIcon, #mets-runStopIcon{
+  font-size: 0.6rem; /* Adjust the icon size as needed */
+}
+.colorPopUp {
+  position:absolute;
+  width: 300px;
+  height: auto;
+  background-color: #fff;  /* White background */
+  border: 1px solid rgba(0, 0, 0, 0.125);  /* Light border */
+  border-radius: 0.25rem;  /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Soft shadow */
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  padding: 15px;
+}
+
+.colorPopUp h4 {
+  text-align: center;
+  background-color: #007bff; /* Bootstrap's primary color */
+  color: white;
+  padding: 10px;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  margin-bottom: 15px;
+}
+.colorList {
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  padding:10px 3px;
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+.label-checkbox {
+  margin-right: 10px;
+  transform: scale(1.3);
+  margin-left: 3px;
+}
+
+.label-name {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 0.25rem;
+  margin-right: 3px;
+  font-size: 14px;
+}
+
+.color-input {
+  padding: 0;
+  border: none;
+}
+
+.popUpButtons {
+  margin-top: 15px;
+  display: flex; 
+  justify-content: flex-end; 
+  flex-wrap: nowrap; 
+}
+.popUpButtons button {
+  background-color: transparent; 
+  color: #007bff;
+  border: 2px solid #007bff; 
+  padding: 4px 5px; 
+  font-size: 12px; 
+  border-radius: 0.2rem; 
+  margin-right: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.popUpButtons button:hover {
+  background-color: #007bff; /* Primary color on hover */
+  color: white; /* White text on hover */
+}
+
+.popUpButtons button:last-child {
+  background-color: transparent; /* No background color */
+  color: #dc3545; /* Bootstrap danger color for text */
+  border: 2px solid #dc3545; /* Red border */
+}
+
+.popUpButtons button:last-child:hover {
+  background-color: #dc3545; /* Red background on hover */
+  color: white; /* White text on hover */
+}
+/* sam2 model button*/
+.sam-border-container {
+  /* padding: 15px; */
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+
+/* .annotation-text-field {
+  overflow: hidden;
+  transform: scaleY(0); 
+  transform-origin: top; 
+  transition: transform 0.3s ease;
+  margin-top: 5px; 
+} */
+/* .annotation-text-field {
+  overflow: hidden;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+
+.sam-border-container.active .annotation-text-field {
+  transform: scaleY(1); 
+  opacity: 1;
+}
+
+.small-input {
+  height: 28px;
+  font-size: 0.8rem;
+  width: 108px;
+}
+
+.annotation-text-field small {
+  font-size: 0.75rem; 
+} */
+
+.model-container{
+  position: relative;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.dropdown-text {
+  resize: both;          
+  overflow: auto;        
+  min-height: 30px;      
+  display: none;         
+  position: absolute;    
+  z-index: 1000;         
+  width: 180px;         
+  top: 100%; 
+  left: 0;
+}
+
+.breadcrumb-separator{
+  padding-left: .5rem;
+  padding-right: .3rem;
+}

@@ -1,0 +1,16 @@
+.api-name-fixed-width{
+    width: 30px; 
+}   
+
+.group-name-fixed-width{
+    width: 40px; 
+}
+.api-url-fixed-width {
+    width: 330px; 
+}
+.last-checked-fixed-width{
+    width: 50px;
+}
+.check-button-fixed-width{
+    width: 40px;
+}

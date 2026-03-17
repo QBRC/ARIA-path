@@ -1,0 +1,44 @@
+# OS/editor
+.DS_Store
+.idea/
+.vscode/
+
+# Python cache/artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.coverage
+.coverage.*
+htmlcov/
+
+# Python envs
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local data/runtime outputs (API services)
+audio/
+databases/
+dbbackup/
+selected_models/
+slides_folder/
+input_slides_folder/
+ckpts/
+
+# Local logs/notes
+*.log
+z.*
+
+# Optional local docker overrides
+docker-compose.override.yml
