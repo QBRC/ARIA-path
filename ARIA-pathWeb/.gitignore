@@ -2,6 +2,7 @@
 /public/hot
 /public/mix-manifest.json
 /public/storage
+/public/vendor
 /storage/*.key
 /vendor
 .env
@@ -18,6 +19,7 @@ yarn-error.log
 /.vscode
 /public/.htaccess
 /public/images
+.DS_Store
 /storage/*.log
 /storage/app/*
 !/storage/app/public
