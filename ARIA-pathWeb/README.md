@@ -42,6 +42,84 @@ php artisan migrate:refresh --seed
 
 ## Configuration Notes
 
+### API endpoint setup for ModelSeeder
+
+`ModelSeeder` reads API endpoint values from `.env`.
+
+Add or update these variables:
+
+```dotenv
+API_IP=api.example.org/aria-pathapi
+API_SCHEME=https
+API_WS_SCHEME=wss
+```
+
+Meaning of each variable:
+
+- `API_IP`: single base host for all seeded endpoints.
+- `API_IP` is used for all endpoint families: `/deepzoom`, `/annotation`, `/copilot`, `/segment`, and websocket `/stream`.
+- `API_IP` can be `host[:port]`, `host/prefix-path`, or full URL.
+- `API_SCHEME`: `http` or `https` for normal API calls.
+- `API_WS_SCHEME`: `ws` or `wss` for websocket endpoints (optional, can be left empty).
+- `API_USE_SERVICE_PORTS`: set to `true` to build endpoints with separate ports per service.
+- `API_PORT_DEEPZOOM`, `API_PORT_ANNOTATION`, `API_PORT_NUCLEI`, `API_PORT_COPILOT`, `API_PORT_SEGMENT`: service ports when `API_USE_SERVICE_PORTS=true`.
+- `API_PORT_STREAM`: websocket stream port (optional, defaults to `API_PORT_ANNOTATION`).
+
+How URL assembly works in seeded API records:
+
+- HTTP endpoints use: `{API_SCHEME}://{API_IP}/deepzoom/...`, `/annotation/...`, `/copilot...`, `/segment...`
+- Websocket endpoint uses: `{API_WS_SCHEME}://{API_IP}/stream?...`
+
+About postfix paths like `/deepzoom`, `/annotation`, `/copilot`, `/segment`:
+
+- These postfix names can vary depending on your reverse proxy routing.
+- If your backend services run on different ports, use a reverse proxy/API gateway as the single `API_IP` entry point.
+- A direct `IP + port` value works only when that single exposed port already routes all required paths.
+- Keep proxy target ports consistent with `docker-compose.yml` in `ARIA-pathAPI`.
+
+Examples:
+
+```dotenv
+# Reverse proxy example
+API_IP=api.example.org/aria-pathapi
+API_SCHEME=https
+API_WS_SCHEME=wss
+
+# Direct service port example
+# (single exposed port that routes all required paths)
+API_IP=127.0.0.1:8001
+API_SCHEME=http
+API_WS_SCHEME=ws
+
+# Multi-port backend example (recommended via reverse proxy)
+# internal services can be 8001/8002/8003..., but expose one external base URL:
+API_IP=192.168.1.20/aria-pathapi
+API_SCHEME=http
+API_WS_SCHEME=ws
+
+# Direct IP + per-service ports example
+API_IP=192.168.1.20
+API_SCHEME=http
+API_WS_SCHEME=ws
+API_USE_SERVICE_PORTS=true
+API_PORT_DEEPZOOM=8001
+API_PORT_ANNOTATION=8002
+API_PORT_NUCLEI=8003
+API_PORT_COPILOT=8004
+API_PORT_SEGMENT=8005
+# Optional, defaults to API_PORT_ANNOTATION when empty
+API_PORT_STREAM=8002
+```
+
+When `API_USE_SERVICE_PORTS=true`, ModelSeeder generates URLs like:
+
+- slide/scale: `{API_SCHEME}://{API_IP}:{API_PORT_DEEPZOOM}/deepzoom/...`
+- annotation CRUD/search/count: `{API_SCHEME}://{API_IP}:{API_PORT_ANNOTATION}/annotation/...`
+- nuclei: `{API_SCHEME}://{API_IP}:{API_PORT_NUCLEI}/nuclei/...`
+- copilot: `{API_SCHEME}://{API_IP}:{API_PORT_COPILOT}/copilot...`
+- segment: `{API_SCHEME}://{API_IP}:{API_PORT_SEGMENT}/segment...`
+- stream: `{API_WS_SCHEME}://{API_IP}:{API_PORT_STREAM}/stream...`
+
 ### Image storage symlink
 
 Create the public symlink so Laravel can access slide/image storage.

@@ -275,7 +275,7 @@ class ColorPalette {
         });        
 
         // Send the colorPalette data to Laravel
-        const imageUUID = imgId; 
+        const imageUUID = imgid; 
         fetch('/save-color-palette', {
             method: 'POST',
             headers: {
