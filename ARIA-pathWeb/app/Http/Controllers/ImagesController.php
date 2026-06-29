@@ -176,96 +176,80 @@ class ImagesController extends Controller
         $isRemote = !empty($imagePath);
         $apiSlidesDir = config('app.iv.api_slidesDir', 'abc');
         $baseName = pathinfo($image->name, PATHINFO_FILENAME);
-        foreach (config('app.iv.folder') as $folder){
-            $data[$folder]=[];
-            foreach (config('app.iv.support_format') as $suffix){
+        foreach (config('app.iv.folder') as $folder) {
+            $data[$folder] = [];
+
+            foreach (config('app.iv.support_format') as $suffix) {
                 $filename = $baseName . '.' . $suffix;
                 $filePart = "{$folder}/{$path}{$filename}";
-            
+
+                // Build the file reference for the backend service
+                // IMAGE_PATH set  => FastAPI reads from URL
+                // IMAGE_PATH empty => FastAPI reads from its own local path namespace, e.g. abc/original/...
                 if ($isRemote) {
                     $fileUrl = rtrim($imagePath, '/') . "/{$filePart}";
-                    $exists = Http::head($fileUrl)->successful();
                 } else {
                     $fileUrl = "{$apiSlidesDir}/{$filePart}";
-                    $localPath = public_path("images/{$filePart}");
-                    $exists = file_exists($localPath);
                 }
 
-                if (!$exists) continue;
-
-                $data[$folder]['suffix'] = $suffix;
-                $data[$folder]['tile'] = '';
-    
+                // Build the actual tile URL OpenSeadragon will use
                 if ($suffix === 'dzi') {
-                    // Handle DZI format
-                    $data[$folder]['tile'] = $fileUrl;
-                    $data[$folder]['params'] = null;
+                    $tileUrl = $fileUrl;
                 } else {
-                    // Handle other formats with placeholder replacement
-                    $data[$folder]['tile'] = str_replace(
+                    $tileUrl = str_replace(
                         [config('app.iv.placeholder.file'), config('app.iv.placeholder.image')],
                         [urlencode($fileUrl), $uuid],
                         $base->api
                     );
-        
+                }
+
+                // Check availability via the backend-facing URL, not Laravel local filesystem
+                try {
+                    $response = Http::head($tileUrl);
+
+                    if ($response->successful()) {
+                        $exists = true;
+                    } else {
+                        $response = Http::get($tileUrl);
+                        $exists = $response->successful();
+                    }
+                } catch (\Exception $e) {
+                    $exists = false;
+                }
+
+                if (!$exists) {
+                    continue;
+                }
+
+                $data[$folder]['suffix'] = $suffix;
+                $data[$folder]['tile'] = $tileUrl;
+
+                if ($suffix === 'dzi') {
+                    $data[$folder]['params'] = null;
+                    $data[$folder]['chat'] = null;
+                    $data[$folder]['seg'] = null;
+                } else {
                     $data[$folder]['params'] = str_replace(
                         config('app.iv.placeholder.image'),
                         $uuid,
                         $scale->api
                     );
-        
+
                     $data[$folder]['chat'] = str_replace(
                         [config('app.iv.placeholder.file'), config('app.iv.placeholder.image')],
                         [urlencode($fileUrl), $uuid],
                         $chat->api
                     );
-        
+
                     $data[$folder]['seg'] = str_replace(
                         [config('app.iv.placeholder.file'), config('app.iv.placeholder.image')],
                         [urlencode($fileUrl), $uuid],
                         $seg->api
                     );
                 }
-                // if (Http::head($file)->successful()){
-                //     $data[$folder]['suffix']=$suffix;
-                //     $data[$folder]['tile']='';
-                //     if ($suffix=='dzi'){
-                //         // $filesInFolder = Http::head(env('IMAGE_PATH').$folder.'/'.$path.$image->name.'_files/0/')->successful();
-                //         // $imgtype=count($filesInFolder)>0 ? pathinfo($filesInFolder[0])['extension'] : 'jpg';
 
-                //         $data[$folder]['tile']=env('IMAGE_PATH').$folder.'/'.$path.$image->name.'.dzi';
-                //         // [
-                //         //     'Image'=>[
-                //         //         'xmlns'=>config('app.iv.xmlns'),
-                //         //         'Url'=>env('IMAGE_PATH').$folder.'/'.$path.$image->name.'_files'."/",
-                //         //         'Format'=>$imgtype,
-                //         //         'Overlap'=>"1",
-                //         //         'TileSize'=>"256",
-                //         //         'Size'=>[
-                //         //             'Width'=>$image->width,
-                //         //             'Height'=>$image->height
-                //         //         ]
-                //         //     ]
-                //         // ];
-                //         $data[$folder]['params'] = null;
-                //     }else{
-                //         // $data[$folder]['params'] = env('API_URL').'params.dzi?file='.urlencode(public_path().'/images/'.$folder.'/'.$path.$image->name.'.'.$suffix);
-                //         // $data[$folder]['tile']=env('API_URL').'dummy.dzi?file='.urlencode(url('/').'/images/'.$folder.'/'.$path.$image->name.'.'.$suffix).'&registry=slide';
-                //         $data[$folder]['tile']=str_replace(config('app.iv.placeholder.file'), urlencode($file), $base->api);
-                //         $data[$folder]['tile']=str_replace(config('app.iv.placeholder.image'), $uuid, $data[$folder]['tile']);
-
-                //         $data[$folder]['params'] = str_replace(config('app.iv.placeholder.image'), $uuid, $scale->api);
-
-                //         $data[$folder]['chat'] = str_replace(config('app.iv.placeholder.file'), urlencode($file), $chat->api);
-                //         $data[$folder]['chat'] = str_replace(config('app.iv.placeholder.image'), $uuid, $data[$folder]['chat']);
-
-                //         $data[$folder]['seg'] = str_replace(config('app.iv.placeholder.file'), urlencode($file), $seg->api);
-                //         $data[$folder]['seg'] = str_replace(config('app.iv.placeholder.image'), $uuid, $data[$folder]['seg']);
-
-                //     }
-                //     // $data[$folder]['anno'] = str_replace(config('app.iv.placeholder.image'), $uuid, $anno['fetch']);
-
-                // }
+                // Stop at the first valid format for this folder
+                break;
             }
         }
 

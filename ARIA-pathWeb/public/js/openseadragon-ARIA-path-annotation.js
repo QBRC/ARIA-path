@@ -276,12 +276,12 @@ class ColorPalette {
 
         // Send the colorPalette data to Laravel
         const imageUUID = imgid; 
-        fetch('/save-color-palette', {
+        fetch(`${baseUrl}save-color-palette`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                // 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
             body: JSON.stringify({
                 image_id: imageUUID,
