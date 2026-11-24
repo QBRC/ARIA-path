@@ -88,7 +88,7 @@ Then you can connect the backend API with frontend server. Or view a demo by ope
 
 Once API is running, configure ARIA-pathWeb to call the backend host/port values in your environment settings.
 
-## Adding Agents to I-Viewer Copilot
+## Adding Agents to ARIA-PATH Copilot
 User can integrate additional agent into the RAG system through function registration. The function registration requires the following parameters:
 1. name: the name of this agent, must be unique.
 2. type: the type of this agent, one of `FunctionTool` or `QueryEngineTool` or None. (More llama_index tool will be supported in future)
@@ -97,7 +97,7 @@ User can integrate additional agent into the RAG system through function registr
 5. description: the detail description about the agent, what can the agent do, what types of results the agent can provide. The RAG system will heavily rely on the description to determine answering logic. 
 6. return_direct: whether to directly return function results, or wrap the results into language template.
 
-The following example registered a basic function to summarize nuclei composition in annotation databases. In the I-Viewer, `image`, `annotations`, `roi`, `description` information will be auto-loaded when the copilot window start.
+The following example registered a basic function to summarize nuclei composition in annotation databases. In the ARIA-PATH, `image`, `annotations`, `roi`, `description` information will be auto-loaded when the copilot window start.
 ```
 ## Basic nuclei summary function
 description = f"""\
