@@ -202,7 +202,7 @@ Examples:
 - If there is a folder `RST` under `ABC`, set `sub_dataset` to `XYZ/ABC/RST`.
 
 This allows the loader to support an unlimited number of nested subdirectories.
-![Loading Image](public/img/iviewer-loading.png "Image Loading")    
+![Loading Image](public/img/ARIA-path-loading.png "Image Loading")
 
 ## Load Image Information To Database
 
